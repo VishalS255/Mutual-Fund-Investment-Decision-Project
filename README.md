@@ -217,7 +217,7 @@ pip install -r requirements.txt
 
 ---
 
-# 📚 Skills Demonstrated
+# 🧰 Skills & Technologies
 
 - Python
 - SQL Server
@@ -229,10 +229,13 @@ pip install -r requirements.txt
 - Dashboard Design
 
 ---
+# 📈 Project Outcomes
 
-# 💼 Resume Summary
-
-Developed an end-to-end Business Intelligence solution using **Python, SQL Server, and Power BI** to automate mutual fund NAV collection, portfolio tracking, and investment analysis. Designed a relational database, implemented an automated ETL pipeline, built transaction management utilities, and created interactive dashboards featuring dynamic DAX calculations and a configurable investment recommendation engine.
+- Automated daily NAV ingestion from AMFI.
+- Eliminated manual NAV tracking using Python ETL.
+- Built a normalized SQL Server database for investment data.
+- Developed interactive Power BI dashboards for investment decisions and portfolio performance.
+- Implemented a configurable Buy/Wait recommendation engine using DAX.
 
 ---
 
