@@ -1,280 +1,243 @@
-📈 Mutual Fund Investment Analytics Dashboard
-> \*\*An end-to-end Business Intelligence solution built using Python, SQL
-> Server and Power BI to automate mutual fund NAV collection, investment
-> tracking and portfolio analytics.\*\*
+# 📈 Mutual Fund Investment Analytics
+
+![Power BI](https://img.shields.io/badge/Power%20BI-Dashboard-F2C811?logo=powerbi&logoColor=black)
+![Python](https://img.shields.io/badge/Python-ETL-3776AB?logo=python&logoColor=white)
+![SQL Server](https://img.shields.io/badge/SQL%20Server-Database-CC2927?logo=microsoftsqlserver&logoColor=white)
+
+An end-to-end Business Intelligence project that automates **Mutual Fund NAV collection, investment tracking, portfolio analytics, and investment recommendations** using **Python, SQL Server, and Power BI**.
+
 ---
-📌 Project Overview
-This project automates the complete lifecycle of mutual fund analytics.
-Instead of manually checking daily NAVs and maintaining spreadsheets,
-the solution:
-Downloads daily NAV data from AMFI.
-Stores historical NAV data in SQL Server.
-Prevents duplicate NAV records.
-Registers mutual fund transactions.
-Calculates portfolio holdings automatically.
-Provides interactive Power BI dashboards for investment decisions
-and portfolio performance.
+
+# 📌 Project Overview
+
+This project eliminates manual tracking of mutual fund investments by automating the complete workflow:
+
+- Download daily NAV data from AMFI
+- Store historical NAV data in SQL Server
+- Register investment transactions
+- Calculate units automatically
+- Generate Buy/Wait recommendations
+- Monitor portfolio performance using Power BI
+
 ---
-🎯 Business Problem
-Investors often struggle to answer:
-Should I invest today?
-Is today's NAV lower than my SIP reference NAV?
-Which funds are currently attractive to buy?
-What is my portfolio worth today?
-How much have I invested?
-Which AMC or category has the highest allocation?
-This project solves these questions through automation and analytics.
+
+# 🎯 Business Problem
+
+Retail investors often struggle to:
+
+- Track daily NAV movements
+- Identify good buying opportunities
+- Monitor portfolio performance
+- Calculate current portfolio value
+- Analyze investment allocation
+
+This project provides a single dashboard to solve these problems through automation and analytics.
+
 ---
-🏗 Solution Architecture
-``` text
-                 AMFI NAV Data
-                      │
-                      ▼
-             download\_nav.py
-                      │
-                      ▼
-               daily\_etl.py
-                      │
-                      ▼
-              SQL Server Database
-      ┌────────────┬──────────────┬──────────────┐
-      │            │              │              │
- FundMaster    NAVHistory    Transactions     DimDate
-      │            │              │              │
-      └────────────┴──────────────┴──────────────┘
-                      │
-                      ▼
-                Power BI Dashboard
-            ┌────────────────────────┐
-            │ Page 1 - Buy Signals   │
-            │ Page 2 - Portfolio     │
-            └────────────────────────┘
+
+# 🏗 Solution Architecture
+
+```text
+AMFI NAV Data
+      │
+      ▼
+Python ETL
+(download_nav.py & daily_etl.py)
+      │
+      ▼
+SQL Server
+(FundMaster, NAVHistory, Transactions)
+      │
+      ▼
+Power BI Dashboard
+      │
+      ├── Page 1 : Buy Opportunity Dashboard
+      └── Page 2 : Portfolio Performance Dashboard
 ```
+
 ---
-🛠 Technology Stack
-Technology      Purpose
+
+# 🛠 Technology Stack
+
+| Technology | Purpose |
+|------------|---------|
+| Python | ETL & Automation |
+| SQL Server | Database |
+| Power BI | Dashboard & Reporting |
+| Pandas | Data Processing |
+| PyODBC | SQL Connectivity |
+| DAX | Business Calculations |
+| AMFI NAV Data | Data Source |
+
 ---
-Power BI        Dashboard & Reporting
-SQL Server      Data Storage
-Python          ETL & Automation
-Pandas          Data Processing
-PyODBC          SQL Connectivity
-AMFI NAV Data   Daily NAV Source
+
+# ⭐ Key Features
+
+- Automated NAV data collection
+- Historical NAV tracking
+- SQL Server relational database
+- Duplicate NAV prevention
+- Mutual fund registration utility
+- Transaction registration utility
+- Automatic unit calculation
+- Buy/Wait recommendation engine
+- Portfolio performance analytics
+- Interactive Power BI dashboards
+
 ---
-🗄 Database Design
-Tables
-FundMaster
-Stores tracked mutual funds and configuration.
-Fields include:
-FundID
-SchemeCode
-FundName
-AMC
-FundCategory
-ConfiguredSIPDay
-AlertThreshold
+
+# 📊 Dashboard
+
+## Page 1 – Buy Opportunity Dashboard
+
+**Purpose**
+
+Helps investors identify buying opportunities by comparing the latest NAV with the first available NAV of the current month.
+
+### Includes
+
+- Latest NAV
+- Month Start NAV
+- NAV Change %
+- Buy/Wait Recommendation
+- Buy Opportunities KPI
+- NAV Trend
+- Fund & AMC slicers
+
 ---
-NAVHistory
-Stores daily historical NAV values.
-Business Rules:
-One NAV per Fund per Date.
-Duplicate NAVs are prevented.
+
+## Page 2 – Portfolio Performance Dashboard
+
+**Purpose**
+
+Tracks the overall portfolio performance using investment transactions.
+
+### Includes
+
+- Total Invested
+- Total Units Held
+- Current Portfolio Value
+- Unrealized Gain/Loss
+- Portfolio Return %
+- Investment by AMC
+- Investment by Category
+- Portfolio Holdings Table
+
 ---
-Transactions
-Stores investment transactions.
-Fields:
-TransactionID
-FundID
-TransactionDate
-TransactionType
-Amount
-NAV
-Units
-Business Rules:
-Transaction allowed only if NAV exists.
-Weekend and market holiday transactions are automatically rejected
-because no NAV exists.
-Units are calculated automatically using:
-Units = Amount / NAV
----
-DimDate
-Calendar table used for reporting and time intelligence.
----
-🐍 Python Utilities
-download_nav.py
-Responsibilities
-Download NAV file from AMFI
-Clean data
-Return dataframe
----
-daily_etl.py
-Responsibilities
-Download latest NAV
-Read tracked funds
-Filter required schemes
-Insert new NAVs
-Skip duplicates
-Log ETL execution
----
-register_fund.py
-Registers new mutual funds.
-Features
-Fund Registration
-SIP Day Configuration
-Alert Threshold Configuration
----
-register_transaction.py
-Registers BUY / SELL transactions.
-Workflow
-``` text
-Select Fund
-      ↓
-Enter Date
-      ↓
-Validate NAV
-      ↓
-Select BUY/SELL
-      ↓
-Enter Amount
-      ↓
-Calculate Units
-      ↓
-Preview Summary
-      ↓
-Insert Transaction
-```
----
-📊 Power BI Dashboard
-Page 1 -- Buy Opportunity Dashboard
-Purpose
-Identify whether a fund should be bought based on configurable NAV
-thresholds.
-KPIs
-Latest NAV Date
-Total Funds
-Buy Opportunities
-Measures
+
+# 💡 Investment Recommendation Logic
+
+The recommendation engine compares:
+
+```text
 Latest NAV
+        ↓
 Month Start NAV
+        ↓
 NAV Change %
-Recommendation
-Visuals
-Recommendation Table
-NAV Trend
-Fund & AMC slicers
+        ↓
+Configured Alert Threshold
+        ↓
+BUY / WAIT
+```
+
+Each mutual fund has its own configurable alert threshold stored in the **FundMaster** table.
+
 ---
-Page 2 -- Portfolio Performance
-Purpose
-Track current portfolio performance.
-KPIs
-Total Amount Invested
-Total Units Held
-Current Portfolio Value
-Unrealized Gain / Loss
-Portfolio Return %
-Visuals
-Investment by AMC
-Investment by Category (Treemap)
-Portfolio Holdings Table
-Holdings Table includes
-Fund Name
-Invested Amount
-Units
-Average Buy NAV
-Latest NAV
-Current Value
-Gain/Loss
-Return %
----
-📐 Important DAX Measures
-Measure                   Purpose
----
-Latest NAV                Latest available NAV for selected fund
-Month Start NAV           First available NAV in current month
-NAV Change %              Compare latest NAV with reference NAV
-Recommendation            BUY / WAIT based on threshold
-Average Buy NAV           Weighted average purchase NAV
-Current Portfolio Value   SUMX(Units × Latest NAV)
-Unrealized Gain/Loss      Current Value − Invested Amount
-Portfolio Return %        Gain/Loss ÷ Invested Amount
----
-📂 Project Structure
-``` text
-MutualFundInvestmentDashboard
+
+# 📂 Project Structure
+
+```text
+Mutual-Fund-Investment-Analytics
 │
 ├── Python
-│   ├── download\_nav.py
-│   ├── daily\_etl.py
-│   ├── register\_fund.py
-│   └── register\_transaction.py
+│   ├── download_nav.py
+│   ├── daily_etl.py
+│   ├── register_fund.py
+│   └── register_transaction.py
 │
 ├── SQL
-│   ├── Database.sql
-│   └── SampleData.sql
+│   └── Database.sql
 │
 ├── Power BI
-│   └── MutualFundDashboard.pbix
+│   └── MutualFundInvestmentDashboard.pbix
 │
 ├── Screenshots
+│   ├── Page1.png
+│   └── Page2.png
 │
-└── README.md
+├── requirements.txt
+├── README.md
+├── LICENSE
+└── .gitignore
 ```
+
 ---
-🚀 How to Run
-Clone repository.
-Restore SQL Server database.
-Configure SQL connection in Python scripts.
-Run `download\_nav.py`.
-Run `daily\_etl.py`.
-Register funds.
-Register transactions.
-Refresh Power BI.
+
+# 🚀 Getting Started
+
+1. Clone the repository.
+2. Execute `Database.sql` in SQL Server.
+3. Install Python dependencies.
+
+```bash
+pip install -r requirements.txt
+```
+
+4. Configure the SQL Server connection in the Python scripts.
+5. Register mutual funds using `register_fund.py`.
+6. Execute `daily_etl.py` to load NAV data.
+7. Register transactions using `register_transaction.py`.
+8. Open **MutualFundInvestmentDashboard.pbix** and refresh the report.
+
 ---
-⭐ Key Features
-Automated ETL Pipeline
-Historical NAV Tracking
-Duplicate NAV Prevention
-Configurable Buy Recommendation
-Transaction Registration Utility
-Automatic Unit Calculation
-Portfolio Analytics
-Dynamic DAX Measures
-Interactive Dashboards
+
+# 📸 Dashboard Screenshots
+
+## Buy Opportunity Dashboard
+
+![Page 1](Screenshots/Page1.png)
+
 ---
-📸 Dashboard Screenshots
-Add screenshots here.
-Page 1
-![Page1](Screenshots/Page1.png)
-Page 2
-![Page2](Screenshots/Page2.png)
+
+## Portfolio Performance Dashboard
+
+![Page 2](Screenshots/Page2.png)
+
 ---
-🚧 Future Enhancements
-Live NAV API Integration
-Power BI Service Scheduled Refresh
-Email Notifications
-SIP Automation
-Portfolio Rebalancing
-Sell Validation
-Mobile Layout
+
+# 🚀 Future Enhancements
+
+- Live NAV API integration
+- Scheduled ETL execution
+- Power BI Service deployment
+- Email notifications
+- SIP automation
+- Portfolio rebalancing recommendations
+
 ---
-📚 Skills Demonstrated
-SQL Server Database Design
-Python ETL Development
-Data Cleaning
-Data Modeling
-DAX
-Power BI Visualization
-Business Analytics
-Financial Reporting
+
+# 📚 Skills Demonstrated
+
+- Python
+- SQL Server
+- ETL Development
+- Power BI
+- Data Modeling
+- DAX
+- Financial Analytics
+- Dashboard Design
+
 ---
-💼 Resume Summary
-Mutual Fund Investment Analytics Dashboard
-Developed an end-to-end BI solution using Python, SQL Server and Power
-BI. Automated NAV ingestion from AMFI, designed a normalized database,
-implemented ETL with duplicate validation, built transaction management
-utilities, and created interactive dashboards for buy recommendations
-and portfolio performance using advanced DAX measures.
+
+# 💼 Resume Summary
+
+Developed an end-to-end Business Intelligence solution using **Python, SQL Server, and Power BI** to automate mutual fund NAV collection, portfolio tracking, and investment analysis. Designed a relational database, implemented an automated ETL pipeline, built transaction management utilities, and created interactive dashboards featuring dynamic DAX calculations and a configurable investment recommendation engine.
+
 ---
-👨‍💻 Author
-Vishal Surwase
-If you found this repository useful, consider giving it a ⭐.
+
+# 👨‍💻 Author
+
+**Vishal Surwase**
+
+If you found this project useful, consider giving it a ⭐ on GitHub.
