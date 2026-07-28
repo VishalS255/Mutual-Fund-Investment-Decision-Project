@@ -215,4 +215,11 @@ marimo/_lsp/
 __marimo__/
 
 # Streamlit
+
 .streamlit/secrets.toml
+
+# Power BI backup files
+*.pbix~
+
+Power BI/
+    MutualFundInvestmentDashboard.pbix
